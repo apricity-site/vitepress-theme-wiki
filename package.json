@@ -9,6 +9,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "vuepress": "^2.0.0-beta.26"
+    "@vuepress/theme-default": "^1.8.2",
+    "@vuepress/theme-vue": "^1.8.2",
+    "vuepress": "^1.8.2"
   }
 }
