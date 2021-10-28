@@ -1,5 +1,6 @@
 # RabbitMQ实战指南
 
+
 ## 第一章 消息中间件的作用
 * 解耦：约定消息格式相当于约定协议，系统之间可以自定义消息/协议处理
 * 存储：可以持久化消息，保证消息数据正确使用
@@ -36,4 +37,31 @@ RabbitMQ之后会根据标签把消息发送给感兴趣的消费者(Consumer)�
 ### Broker 服务节点
 对于RabbitMQ来说，一个RabbitMQ Broker 可以简单看做一个RabbitMQ服务节点，
 或者RabbitMQ服务实例。大多数情况下也可以将一个RabbitMQ Broker 看作一台RabbitMQ服务器
+
+#### 消息生产-消费流程
+1. 生产者包装消息，然后发送消息(`basic.publish`)到Broker中。
+2. 消费者订阅并接收消息(`basic.cusume`或者`basic.get`)，经过处理得到原始数据
+3. 进行业务逻辑处理
+业务逻辑与接收消息逻辑不需要使用同一个线程。消费者可以使用一个线程接收消息并存入内存中，比如`BlockingQueue`。业务处理逻辑
+使用另一个线程从内存中读取
+### 队列
+1. Queue：队列，RabbitMQ的内部对象，用于存储消息
+2. 多个消费者可以订阅同一个队列,这时队列中的消息会被平均分摊(Round-Robin,即轮询)
+给多个消费者进行处理，而不是每个消费者都收到所有的消息并处理。
+例如：A与B消费同意队列，A消费消息1后，B就会消费消息2，不会消费同一消息
+3. 交换器、路由、绑定
+   * Exchange：交换器：生产者发送消息给Exchange，Exchange将消息路由到一个或多个队列中，如果路由不到则返回给生产者或直接丢弃
+   * 交换器有四种类型，具有不同策略
+   * RoutingKey：生产者将消息发送给交换器的时候，一般会指定一个RoutingKey，用来指定这个消息的路由规则，而这个RoutingKey需要与交换器类型和绑定键(BindingKey)联合使用才会生效
+     在交换器和绑定键(BingdingKey)固定的情况下，生产者可以在发送消息给交换器时，通过指定RoutingKey来决定消息流向哪里
+   * Binding：绑定。RabbitMQ中通过绑定将交换器与队列关联，在绑定的时候通常会指定绑定键(BindingKey)，这样RabbitMQ就知道如何正确地将消息路由到队列了
+   * 生产者将消息发送给交换器时，需要一个RoutingKey，当BindingKey和RoutingKey相匹
+     配时，消息会被路由到对应的队列中。在绑定多个队列到同一个交换器的时候，这些绑定允许
+     使用相同的BindingKey。BindingKey 并不是在所有的情况下都生效，它依赖于交换器类型，比
+     如fanout类型的交换器就会无视BindingKey，而是将消息路由到所有绑定到该交换器的队列中。  
+     * 在使用绑定的时候，其中需要的路由键是BindingKey。 涉及的客户端方法如:
+     `channel.exchangeBind`、`channel.queueBind`,对应的AMQP命令为`Exchange.Bind`、`Queue.Bind`.
+     * 在发送消息的时候，其中需要的路由键是RoutingKey。 涉及的客户端方法如
+     `channel.basicPublish`,对应的AMQP命令为`Basic.Publish`。
+
 
