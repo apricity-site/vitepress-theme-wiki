@@ -45,23 +45,27 @@ RabbitMQ之后会根据标签把消息发送给感兴趣的消费者(Consumer)�
 业务逻辑与接收消息逻辑不需要使用同一个线程。消费者可以使用一个线程接收消息并存入内存中，比如`BlockingQueue`。业务处理逻辑
 使用另一个线程从内存中读取
 ### 队列
-1. Queue：队列，RabbitMQ的内部对象，用于存储消息
-2. 多个消费者可以订阅同一个队列,这时队列中的消息会被平均分摊(Round-Robin,即轮询)
+1. `Queue`：队列，`RabbitMQ`的内部对象，用于存储消息
+2. 多个消费者可以订阅同一个队列,这时队列中的消息会被平均分摊(`Round-Robin`,即轮询)
 给多个消费者进行处理，而不是每个消费者都收到所有的消息并处理。
 例如：A与B消费同意队列，A消费消息1后，B就会消费消息2，不会消费同一消息
 3. 交换器、路由、绑定
-   * Exchange：交换器：生产者发送消息给Exchange，Exchange将消息路由到一个或多个队列中，如果路由不到则返回给生产者或直接丢弃
+   * `Exchange`：交换器：生产者发送消息给`Exchange`，`Exchange`将消息路由到一个或多个队列中，如果路由不到则返回给生产者或直接丢弃
    * 交换器有四种类型，具有不同策略
-   * RoutingKey：生产者将消息发送给交换器的时候，一般会指定一个RoutingKey，用来指定这个消息的路由规则，而这个RoutingKey需要与交换器类型和绑定键(BindingKey)联合使用才会生效
-     在交换器和绑定键(BingdingKey)固定的情况下，生产者可以在发送消息给交换器时，通过指定RoutingKey来决定消息流向哪里
-   * Binding：绑定。RabbitMQ中通过绑定将交换器与队列关联，在绑定的时候通常会指定绑定键(BindingKey)，这样RabbitMQ就知道如何正确地将消息路由到队列了
-   * 生产者将消息发送给交换器时，需要一个RoutingKey，当BindingKey和RoutingKey相匹
-     配时，消息会被路由到对应的队列中。在绑定多个队列到同一个交换器的时候，这些绑定允许
-     使用相同的BindingKey。BindingKey 并不是在所有的情况下都生效，它依赖于交换器类型，比
-     如fanout类型的交换器就会无视BindingKey，而是将消息路由到所有绑定到该交换器的队列中。  
-     * 在使用绑定的时候，其中需要的路由键是BindingKey。 涉及的客户端方法如:
+   * `RoutingKey`：生产者将消息发送给交换器的时候，一般会指定一个`RoutingKey`，用来指定这个消息的路由规则，而这个`RoutingKey`需要与交换器类型和绑定键(`BindingKey`)联合使用才会生效
+     在交换器和绑定键(`BingdingKey`)固定的情况下，生产者可以在发送消息给交换器时，通过指定`RoutingKey`来决定消息流向哪里
+   * `Binding`：绑定。`RabbitMQ`中通过绑定将交换器与队列关联，在绑定的时候通常会指定绑定键(`BindingKey`)，这样`RabbitMQ`就知道如何正确地将消息路由到队列了
+   * 生产者将消息发送给交换器时，需要一个`RoutingKey`，当`BindingKey`和`RoutingKey`相匹配时，消息会被路由到对应的队列中。在绑定多个队列到同一个交换器的时候，这些绑定允许使用相同的`BindingKey`。B`indingKey `并不是在所有的情况下都生效，它依赖于交换器类型，比如fanout类型的交换器就会无视`BindingKey`，而是将消息路由到所有绑定到该交换器的队列中。  
+     * 在使用绑定的时候，其中需要的路由键是`BindingKey`。 涉及的客户端方法如:
      `channel.exchangeBind`、`channel.queueBind`,对应的AMQP命令为`Exchange.Bind`、`Queue.Bind`.
-     * 在发送消息的时候，其中需要的路由键是RoutingKey。 涉及的客户端方法如
+     * 在发送消息的时候，其中需要的路由键是`RoutingKey`。 涉及的客户端方法如
      `channel.basicPublish`,对应的AMQP命令为`Basic.Publish`。
+   
+   1. 生产者生产消息
+   2. 根据`RoutingKey`将消息发送给对应的`Exchange`
+   3. `Exchange`有四种不同类型，不同类型的`Exchange`根据自己的`BindingKey`规则将消息发送给对应的队列
+   4. 消费者从队列消费消息
 
+### 交换器类型
 
+RabbitMQ常用的交换器类型有fanout、direct、topic、headers这四种。AMQP协议里还提到另外两种类型：System和自定义，这里不予描述。对于这四种类型下面一一阐述。
