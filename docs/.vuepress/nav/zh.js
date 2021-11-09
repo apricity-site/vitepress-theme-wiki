@@ -8,5 +8,15 @@ module.exports = [
                 link: '/book/rabbitmq-in-action-guide/'
             }
         ]
-    }
+    },
+    {
+        text: '课程笔记',
+        link: '/course',
+        items: [
+            {
+                text: 'CI/CD',
+                link: '/course/ci-cd/'
+            }
+        ]
+    },
 ]
