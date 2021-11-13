@@ -392,6 +392,8 @@ end
   config.vm.network "private_network", type: "dhcp"
 ```
 
+**如果`reload`后报错网卡找不到，需要先禁用网卡再启用**
+
 ### 配置公共网络
 
 下面这条配置用来配置公共网络：
