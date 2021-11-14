@@ -1,6 +1,7 @@
 module.exports = ctx => ({
     title: 'APRICITY',
     description: '个人知识库',
+    base: '/personal_wiki/',
     themeConfig: {
         locales: {
             '/': {
