@@ -11,23 +11,19 @@ module.exports = ctx => ({
                 editLinkText: '在 GitHub 上编辑此页',
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
+                // sidebar: {
+                //     '/book/rabbitmq-in-action-guide/': [
+                //         '',
+                //         '03_客户端开发向导',
+                //         '04_RabbitMQ进阶'
+                //     ],
+                //     ...getToolsSidebar()
+                // }
                 sidebar: {
-                    '/book/rabbitmq-in-action-guide/': [
-                        '',
-                        '03_客户端开发向导',
-                        '04_RabbitMQ进阶'
-                    ],
-                    ...getToolsSidebar()
+                    ...require('./sidebar/book'),
+                    ...require('./sidebar/tools')
                 }
             }
         }
     }
 })
-
-function getToolsSidebar() {
-    return  {
-        '/tools/vagrant/': [
-            'get_startting'
-        ]
-    }
-}

@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # Vagrant 入门
 
 ## 安装软件

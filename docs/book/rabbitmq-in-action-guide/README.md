@@ -1,4 +1,4 @@
-# RabbitMQ实战指南
+# rabbitmq入门
 
 
 ## 第一章 消息中间件的作用
