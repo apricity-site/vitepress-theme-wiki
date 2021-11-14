@@ -19,4 +19,14 @@ module.exports = [
             }
         ]
     },
+    {
+        text: '工具',
+        link: '/tools',
+        items: [
+            {
+                text: 'vagrant',
+                link: '/tools/vagrant/get_startting'
+            }
+        ]
+    },
 ]
