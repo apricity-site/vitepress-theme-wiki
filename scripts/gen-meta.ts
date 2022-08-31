@@ -5,8 +5,8 @@ import * as lodash from 'lodash'
 import markdownParser from "./markdown-parser";
 import {postLink, warningIfNeed} from "./utils";
 import {MarkdownItEnv} from "@mdit-vue/types";
-import {BlogMeta, FSMeta, PageMeta} from "../typeing";
-import {blogRoot, docsRoot} from "./paths";
+import {BlogMeta, FSMeta, Note, NoteMeta, Post} from "../typeing";
+import {blogRoot, docsRoot, noteRoot} from "./paths";
 import {isDate, isUndefined} from "lodash";
 
 
@@ -50,24 +50,15 @@ export const traverse = (file: string): FSMeta[] => {
   return result
 }
 
-
-
-
-/**
- * 该方法需要获取的数据
- * 1. 笔记两级分类
- */
-export const genNoteMeta = () => {
-
-}
-
-
-export const genMeta = () => {
-  // genBlogMeta();
-  const blogFsTree = traverse(blogRoot)
-  blogMetaGenerator(blogFsTree)
-  // 遍历fsTree
-  genNoteMeta();
+function metaTraverse(callback: (fsMeta: FSMeta) => void, fsMetas?: FSMeta[]) {
+  if (!fsMetas) return
+  for (let fsMeta of fsMetas) {
+    if (fsMeta.type === 'file') {
+      callback(fsMeta)
+    }else {
+      metaTraverse(callback, fsMeta.children)
+    }
+  }
 }
 
 /**
@@ -92,17 +83,7 @@ export const blogMetaGenerator = (fsTree: FSMeta[]) => {
     pages: []
   }
 
-  function metaTraverse(fsMetas?: FSMeta[]) {
-    if (!fsMetas) return
-    for (let fsMeta of fsMetas) {
-      if (fsMeta.type === 'file') {
-        blogPostAnalyse(fsMeta, meta)
-      }else {
-        metaTraverse(fsMeta.children)
-      }
-    }
-  }
-  metaTraverse(fsTree)
+  metaTraverse((fs) => blogPostAnalyse(fs, meta), fsTree)
   const sortable = meta.pages.filter(p => !isUndefined(p.createTime))
   const unSortable = meta.pages.filter(p => isUndefined(p.createTime))
   sortable.sort((a, b) => {
@@ -134,7 +115,7 @@ export const blogPostAnalyse = (fsMeta: FSMeta, meta: BlogMeta) => {
       isUndefined(frontmatter!.title),
       `【${fsMeta.file}】没有文章标题`),
     createTime: frontmatter!.createTime
-  } as PageMeta
+  } as Post
   meta.pages.push(pageMeta)
 
   // resolve category
@@ -172,6 +153,71 @@ export const blogPostAnalyse = (fsMeta: FSMeta, meta: BlogMeta) => {
   }else {
     meta.archives.unArchived.push(pageMeta)
   }
+}
+
+/**
+ * baseCategory: java
+ * category: spring
+ * @param fsMeta
+ * @param meta
+ */
+export const noteAnalyse = (fsMeta: FSMeta, meta: NoteMeta) => {
+  const { frontmatter, relativePath } = fsMeta
+  if (frontmatter && frontmatter.note) {
+    const note: Note = {
+      title: frontmatter.title,
+      cover: frontmatter.cover,
+      topIndex: frontmatter.topIndex,
+      relativePath: relativePath as string,
+      desc: frontmatter.desc,
+      purpose: frontmatter.purpose
+    }
+
+    meta.notes.push(note)
+
+    if (frontmatter.baseCategory) {
+      if (!meta.baseCategories[frontmatter.baseCategory]) {
+        meta.baseCategories[frontmatter.baseCategory] = {}
+      }
+      if (!meta.baseCategories[frontmatter.baseCategory][frontmatter.category]) {
+        meta.baseCategories[frontmatter.baseCategory][frontmatter.category] = []
+      }
+      if (!meta.categories[frontmatter.category]) {
+        meta.categories[frontmatter.category] = []
+      }
+      meta.baseCategories[frontmatter.baseCategory][frontmatter.category].push(note)
+      meta.categories[frontmatter.category].push(note)
+    }
+  }
+}
+
+/**
+ * 该方法需要获取的数据
+ * 1.  全部 + 两级分类 + 未分类
+ */
+export const noteMetaGenerator = (fsTree: FSMeta[]) => {
+  const meta: NoteMeta = {
+    baseCategories: {},
+    categories: {},
+    notes: []
+  }
+  metaTraverse((fs) => noteAnalyse(fs, meta), fsTree)
+  const metaContent = `
+${JSON.stringify(meta, null, 2)} 
+  `
+  fs.writeFileSync(path.resolve(docsRoot, 'meta', 'note.json'), metaContent, {
+    encoding: 'utf-8'
+  })
+
+}
+
+export const genMeta = () => {
+  const blogFsTree = traverse(blogRoot)
+  blogMetaGenerator(blogFsTree)
+
+  const noteFsTree = traverse(noteRoot)
+  // 遍历fsTree
+  noteMetaGenerator(noteFsTree);
 }
 
 genMeta()

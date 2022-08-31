@@ -1,6 +1,6 @@
 
 
-export type PageMeta = {
+export type Post = {
   relativePath: string
   category: string | string[] | undefined
   tag:  string | string[] | undefined
@@ -9,10 +9,25 @@ export type PageMeta = {
 
 
 export type BlogMeta = {
-  categories: Record<string, PageMeta[]>
-  tags: Record<string, PageMeta[]>
-  archives: Record<string, PageMeta[]>
-  pages: PageMeta[]
+  categories: Record<string, Post[]>
+  tags: Record<string, Post[]>
+  archives: Record<string, Post[]>
+  pages: Post[]
+}
+
+export type Note = {
+  cover?: string // 封面图片
+  title?: string // 标题
+  topIndex?: number // 置顶顺序
+  relativePath: string // 相对路劲
+  desc?: string // 简介
+  purpose?: string // 用途
+}
+
+export type NoteMeta = {
+  categories: Record<string, Note[]>,
+  baseCategories: Record<string, Record<string, Note[]>>,
+  notes: Note[]
 }
 
 export type FSMeta = {

@@ -1,3 +1,7 @@
 ---
-layout: page
+layout: home
 ---
+
+<ClientOnly>
+  <Note />
+</ClientOnly>

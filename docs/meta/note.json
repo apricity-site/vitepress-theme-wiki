@@ -1,0 +1,46 @@
+
+{
+  "baseCategories": {
+    "java": {
+      "spring boot": [
+        {
+          "title": "hello",
+          "relativePath": "/note/java/index"
+        }
+      ]
+    },
+    "前端": {
+      "typescript": [
+        {
+          "title": "hello",
+          "relativePath": "/note/typescript/index"
+        }
+      ]
+    }
+  },
+  "categories": {
+    "spring boot": [
+      {
+        "title": "hello",
+        "relativePath": "/note/java/index"
+      }
+    ],
+    "typescript": [
+      {
+        "title": "hello",
+        "relativePath": "/note/typescript/index"
+      }
+    ]
+  },
+  "notes": [
+    {
+      "title": "hello",
+      "relativePath": "/note/java/index"
+    },
+    {
+      "title": "hello",
+      "relativePath": "/note/typescript/index"
+    }
+  ]
+} 
+  
