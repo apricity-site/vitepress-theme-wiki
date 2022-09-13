@@ -9,6 +9,14 @@
         }
       ]
     },
+    "后端": {
+      "中间件": [
+        {
+          "title": "Kafka",
+          "relativePath": "/note/kafka/index"
+        }
+      ]
+    },
     "前端": {
       "typescript": [
         {
@@ -25,6 +33,12 @@
         "relativePath": "/note/java/index"
       }
     ],
+    "中间件": [
+      {
+        "title": "Kafka",
+        "relativePath": "/note/kafka/index"
+      }
+    ],
     "typescript": [
       {
         "title": "hello",
@@ -36,6 +50,10 @@
     {
       "title": "hello",
       "relativePath": "/note/java/index"
+    },
+    {
+      "title": "Kafka",
+      "relativePath": "/note/kafka/index"
     },
     {
       "title": "hello",

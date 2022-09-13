@@ -7,23 +7,6 @@
         "createTime": "2021-08-18T00:00:00.000Z"
       }
     ],
-    "2022": [
-      {
-        "relativePath": "/blog/2022/copy-on-write-array-list-source-analyse",
-        "category": [
-          "java源码解析"
-        ],
-        "tag": [
-          "源码解析"
-        ],
-        "title": "CopyOnWriteArrayList源码解析",
-        "createTime": "2022-08-11T00:00:00.000Z"
-      },
-      {
-        "relativePath": "/blog/2022/spring-boot/index",
-        "createTime": "2022-08-13T00:00:00.000Z"
-      }
-    ],
     "unArchived": [
       {
         "relativePath": "/blog/2021/没有创建时间",
@@ -31,52 +14,9 @@
       }
     ]
   },
-  "categories": {
-    "java源码解析": [
-      {
-        "relativePath": "/blog/2022/copy-on-write-array-list-source-analyse",
-        "category": [
-          "java源码解析"
-        ],
-        "tag": [
-          "源码解析"
-        ],
-        "title": "CopyOnWriteArrayList源码解析",
-        "createTime": "2022-08-11T00:00:00.000Z"
-      }
-    ]
-  },
-  "tags": {
-    "源码解析": [
-      {
-        "relativePath": "/blog/2022/copy-on-write-array-list-source-analyse",
-        "category": [
-          "java源码解析"
-        ],
-        "tag": [
-          "源码解析"
-        ],
-        "title": "CopyOnWriteArrayList源码解析",
-        "createTime": "2022-08-11T00:00:00.000Z"
-      }
-    ]
-  },
+  "categories": {},
+  "tags": {},
   "pages": [
-    {
-      "relativePath": "/blog/2022/spring-boot/index",
-      "createTime": "2022-08-13T00:00:00.000Z"
-    },
-    {
-      "relativePath": "/blog/2022/copy-on-write-array-list-source-analyse",
-      "category": [
-        "java源码解析"
-      ],
-      "tag": [
-        "源码解析"
-      ],
-      "title": "CopyOnWriteArrayList源码解析",
-      "createTime": "2022-08-11T00:00:00.000Z"
-    },
     {
       "relativePath": "/blog/2021/spring-batch/01-getting-start",
       "createTime": "2021-08-18T00:00:00.000Z"

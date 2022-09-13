@@ -1,4 +1,4 @@
-import {UserConfig} from "vitepress";
+import {DefaultTheme, UserConfig} from "vitepress";
 
 const config: UserConfig = {
   title: 'wiki',
@@ -8,21 +8,21 @@ const config: UserConfig = {
     logo: '/logo.svg',
     nav: [
       { text: 'Note', link: '/note/index' },
-      { text: 'Configs', link: '/configs' },
-      { text: 'Changelog', link: 'https://github.com/...' }
+      { text: 'Blog', link: '/blog/index' }
     ],
-    sidebar: [
-      {
-        "text": "spring batch",
-        "link": "/blog/2021/spring-batch/01-getting-start",
-        "items": [
-          {
-            "text": "入门",
-            "link": "/blog/2021/spring-batch/01-getting-start"
-          }
-        ]
-      }
-    ]
+    sidebar: {
+      '/note/kafka/index': [
+        {
+          text: "Kafka",
+          items: [
+            {
+              text: "入门",
+              link: "/note/kafka/index"
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 
