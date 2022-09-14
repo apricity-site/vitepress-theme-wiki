@@ -1,5 +1,4 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",

@@ -56,6 +56,7 @@ defineProps({
     }
 
     .text {
+      padding-left: 12px;
       width: 222px;
       a {
         display: block;
