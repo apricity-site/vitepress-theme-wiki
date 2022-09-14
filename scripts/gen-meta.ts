@@ -1,6 +1,5 @@
 import path from 'path'
 import * as fs from "fs";
-import * as lodash from 'lodash'
 
 import markdownParser from "./markdown-parser";
 import {postLink, warningIfNeed} from "./utils";

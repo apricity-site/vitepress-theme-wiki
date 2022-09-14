@@ -1,4 +1,4 @@
-import {DefaultTheme, UserConfig} from "vitepress";
+import {UserConfig} from "vitepress";
 
 const config: UserConfig = {
   title: 'wiki',

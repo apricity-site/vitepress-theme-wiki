@@ -43,7 +43,7 @@ const handleBCToggle = (bc?: string) => {
         :key="bc"
       >
         <div class="base-category-title">
-          <h2>{{ bc }}</h2>
+          {{ bc }}
         </div>
         <div class="category-list">
           <div
@@ -52,7 +52,7 @@ const handleBCToggle = (bc?: string) => {
             :key="c"
           >
             <div class="category-title">
-              <h3>{{ c }}</h3>
+              {{ c }}
             </div>
             <div class="note-list">
               <NoteCard
@@ -78,37 +78,60 @@ const handleBCToggle = (bc?: string) => {
   & > .sider {
     padding-left: 40px;
     margin-right: 12px;
-  }
 
-  .base-category-list {
-    width: 124px;
-    li {
-      position: relative;
-      font-size: 14px;
-      color: #1c1f21;
-      line-height: 36px;
-      margin-bottom: 12px;
-      height: 36px;
-      padding-left: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      &:not(.is-active):hover {
+    & > .base-category-list {
+      width: 124px;
+      li {
+        position: relative;
+        font-size: 14px;
+        color: #1c1f21;
+        line-height: 36px;
+        margin-bottom: 12px;
+        height: 36px;
+        padding-left: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        &:not(.is-active):hover {
+          span {
+            color: white;
+            background-color: #40a9ff;
+          }
+        }
+
         span {
-          color: white;
-          background-color: #40a9ff;
+          display: inline-block;
+          padding: 5px 7px;
+          line-height: 16px;
+          border-radius: 4px;
         }
       }
 
-      span {
-        display: inline-block;
-        padding: 5px 7px;
-        line-height: 16px;
-        border-radius: 4px;
+      .is-active {
+        color: #1890ff;
       }
     }
+  }
 
-    .is-active {
-      color: #1890ff;
+  & > .content {
+    & > .base-category-card {
+      .base-category-title {
+        font-size: 16px;
+        color: #1c1f21;
+        line-height: 32px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .category-list {
+        .category-card {
+          .category-title {
+            font-size: 16px;
+            color: #37f;
+            line-height: 24px;
+            margin-bottom: 24px;
+          }
+        }
+      }
     }
   }
 

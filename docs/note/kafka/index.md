@@ -1,5 +1,6 @@
 ---
 note: true  
+noteTitle: Kafka
 title: Kafka
 baseCategory: 后端
 category: 中间件

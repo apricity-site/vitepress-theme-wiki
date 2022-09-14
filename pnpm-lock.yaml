@@ -6,6 +6,7 @@ specifiers:
   '@types/lodash': ^4.14.184
   '@types/markdown-it': ^12.2.3
   '@types/node': ^18.7.13
+  '@vue/tsconfig': ^0.1.3
   chalk: 4.1.2
   lodash: ^4.17.21
   lodash-es: ^4.17.21
@@ -22,6 +23,7 @@ devDependencies:
   '@types/lodash': 4.14.184
   '@types/markdown-it': 12.2.3
   '@types/node': 18.7.13
+  '@vue/tsconfig': 0.1.3_@types+node@18.7.13
   chalk: 4.1.2
   lodash: 4.17.21
   lodash-es: 4.17.21
@@ -393,6 +395,17 @@ packages:
 
   /@vue/shared/3.2.37:
     resolution: {integrity: sha512-4rSJemR2NQIo9Klm1vabqWjD8rs/ZaJSzMxkMNeJS6lHiUjjUeYFbooN19NgFjztubEKh3WlZUeOLVdbbUWHsw==}
+    dev: true
+
+  /@vue/tsconfig/0.1.3_@types+node@18.7.13:
+    resolution: {integrity: sha512-kQVsh8yyWPvHpb8gIc9l/HIDiiVUy1amynLNpCy8p+FoCiZXCo6fQos5/097MmnNZc9AtseDsCrfkhqCrJ8Olg==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+    dependencies:
+      '@types/node': 18.7.13
     dev: true
 
   /@vueuse/core/9.1.1_vue@3.2.37:
